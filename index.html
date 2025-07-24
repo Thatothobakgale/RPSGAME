@@ -1,0 +1,219 @@
+<!Doctype html>
+<html>
+ <head>
+  <title>GAME</title>
+  <link href="stylesheet" rel="style.css">
+  <meta charset = "UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.1, maximum-scale=1.0, user-scalable=no">
+ </head>
+ 
+ <style>
+  html, body{
+   font-family: Arial, sans-serif;
+   background-color: #ccc;
+   padding: 0;
+   margin: 0; 
+   color: white;
+   left: 0;
+   top: 0;
+  }
+  .container, .container2, .container3, .AIDualPlay{
+   border: 2px solid transparent;
+   background-color: violet;
+   border-radius: 9px;
+   max-width: 420px;
+   margin: 140px auto;
+  }
+  .logo{
+   width: 110px;
+   height: 100px;
+  }
+  button{
+   margin: 20px;
+   width: 110px;
+   height: 30px;
+   border-radius: 7px;
+   background: black;
+   color: white;
+   border: none;
+   font-size: 20px;
+   font-weight: bold;
+   cursor: pointer;
+   position: relative;
+   z-index: 1;
+   overflow: hidden;
+}
+
+  button:hover {
+   color: black;
+}
+
+  button:after {
+   content: "";
+   background: white;
+   position: absolute;
+   z-index: -1;
+   left: -20%;
+   right: -20%;
+   top: 0;
+   bottom: 0;
+   transform: skewX(-45deg) scale(0, 1);
+   transition: all 0.5s;
+}
+
+   button:hover:after {
+   transform: skewX(-45deg) scale(1, 1);
+   -webkit-transition: all 0.5s;
+   transition: all 0.5s;
+}
+  .intro{
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100vh;
+   background-color: #ccc;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+  }
+  #AIresult,  #WonLost, #WonLost2{
+   color: yellow;
+   font-size: 20px;
+  }
+  .btnplay{
+   width: 170px; 
+  }
+  .AIDualPlay{
+   max-width: 480px; 
+  }
+  .gif{
+   width: 100px;
+   height: 50px;
+  }
+  .btnplay, .gif{
+   display: flex;
+  }
+  .home{
+   color: white;
+   text-decoration: none;
+  }
+  .home:hover{
+   color: black
+  }
+  #player1result, #player2result, #AIresult, #result4{
+   color: yellow;
+   font-size: 20px;
+  }
+  #Player1result, #Player2result, #WonLost5, #result5{
+   color: yellow;
+   font-size: 20px;
+  } 
+  audio{
+   width: 150px;
+  }
+  .text{
+   text-transform: uppercase;
+  }
+  .main-container{
+   width: 100vw;
+   height: 100vh;
+   position: fixed;
+   margin-bottom: 145px;
+  }
+ </style>
+ 
+ <body>
+ <div class="main-container"> 
+  <div class="intro">
+   <img src="welcome.GIF" alt="Intro GIF">
+  </div>
+  
+  <div class="AIDualPlay" id="home" style="display: none;"><br>
+  
+    <center><img src="logo.jpg" alt="image" class="logo"></center>
+    
+	<center><h2><i>Rock-Paper-Scissors Game</i></h2>
+	 <img src="AI.gif" alt="GIF" class="gif">
+	<button onclick="AIplay()" class="btnplay">AI Challenge</button><br>
+	 
+	 <img src="dual.gif" alt="GIF" class="gif">
+	<button onclick="Dualplay()" class="btnplay">Dual Challenge</button><br></center>
+     <audio src="song.mp3" type="audio/mp3" controls class""audio"></audio>
+   </div>
+   
+  <div class="container" id="AIgame" style="display: none;">
+   <br>
+    <center><img src="logo.jpg" alt="image" class="logo"></center>
+   
+    <center><h2><i>Rock-Paper-Scissors Game</i></h2>
+     <h2>Each choice has 6 lives.</h2>
+	 
+	 <p><b>Enter 1 for Rock, 2 for Paper, or 3 for Scissors</b></p>
+      <input id="choice" type="number" required><br>
+	 
+       <p style="display: inline;">AI Played:</p>
+        <b><div id="AIresult" style="display: inline;"></div>
+         <div id="WonLost"></div></b><br>
+		
+	   <p style="display: inline;">Player Score:</p><div id="result4" style="display: inline;"></div><br>
+		
+	   <p style="display: inline;">AI Score:</p><div id="result5" style="display: inline;"></div><br>
+		
+        <button onclick="play()" id="btnPlay">PLAY</button>
+         <button onclick="refresh()" id="btnRefresh">REFRESH</button>
+         <center><button onclick="home" class="home">HOME</button></center>
+          <div id="winner"></div>
+           <div id="replay"></div>
+           <br><br>
+         </center>
+       <div class="color-changer"></div>
+      </div>
+	  
+	  <div class="container3" id="names-form" style="display: none;"><br>
+       <center><img src="logo.jpg" alt="image" class="logo"></center><br>
+        <center><h2><i>Rock-Paper-Scissors Game</i></h2>
+	    <h2>Player 1</h2>
+		<label for="name">Enter your preferred name:</label>
+		 <input id="name1" type="text" required>
+		 
+	    <h2>Player 2</h2>
+		 <label for="name">Enter your preferred name:</label>
+		  <input id="name2" type="text" required>
+       <div class="color-changer"></div><br>
+		  <button onclick="start()" id="btnStart">START</button>
+		  <button onclick="refresh3()" id="btnRefresh2">CLEAR</button></center>
+            <center><button class="home3">HOME</button></center>
+		   <div id="nameResult"></div>
+	  </div>
+	  
+	  <div class="container2" id="dual" style="display: none;">
+      <br>
+       <center><img src="logo.jpg" alt="image" class="logo"></center>
+        <center><h2><i>Rock-Paper-Scissors Game</i></h2>
+         <h2>Each choice has 6 lives.</h2>
+          <b><span style="color: #C4A484;"><h2><div id="playerName1" class="text"></div></h2></span></b>
+           <label><b>Enter 1, 2, or 3:</b></label>
+            <input id="choice1" type="number" required>
+            <br>
+			<b><span style="color: #C4A484;"><h2><div id="playerName2" class="text"></div></h2></span></b>
+              <label><b>Enter 1, 2, or 3:</b></label>
+               <input id="choice2" type="number" required><br><br>
+                <b><p style="display: inline;">Player 1 Played:	</p>
+                 <div id="Player1result" style="display: inline;"></div><br>
+                  <p style="display: inline;">Player 2 Played:		</p>
+                   <b><div id="Player2result" style="display: inline;"></div><br><br>
+                    <div id="WonLost2"></div></b><br>
+		
+		<p style="display: inline;">Player 1 Score:		</p><div id="player1result" style="display: inline;"></div><br>
+		 <p style="display: inline;">Player 2 Score:     </p><div id="player2result" style="display: inline;"></div><br>
+          <button onclick="play2()" id="btnPlay2">PLAY</button>
+           <button onclick="refresh2()" id="btnRefresh2">REFRESH</button></center>
+            <center><button class="home2">HOME</button>
+             <div id="winner2"></div>
+              <div id="replay2"></div></center>
+   </div>
+   </div>
+  <script src="script.js"></script>
+ </body>
+</html>
